@@ -1,5 +1,3 @@
-import { useForm } from "react-hook-form";
-
 function SingleInput(props) {
   return (
     <label htmlFor={props.name}
@@ -8,11 +6,6 @@ function SingleInput(props) {
         <h1 className="text-[24px]">{props.title}</h1>
         <span className="text-[#1f1f1f]">{props.secondTitle}</span>
       </div>
-      {/* <span className="font-semibold">{props.title}</span>
-      <span className="text-sm text-gray-500">
-        {props.secondTitle}
-      </span> */}
-
       <input
         placeholder={props.placeholder}
         className={`className="text-[14px] outline-none border-b border-indigo-300 focus:border-indigo-700 focus:border-b-2 focus:ring-0" ${ props.error ? "border-red-500" : "border-gray-300" }`}
@@ -31,51 +24,58 @@ function SingleInput(props) {
 
 function RadioInputValue(props) {
   return (
-    <label htmlFor={props.value}>
+    <label htmlFor={props.value} className="flex items-center">
       <input
         type="radio"
         id={props.value}
         value={props.value}
         className="mx-3"
-        {...(props.rules, props.register && props.name ? props.register(props.name) : {})}
+        {...(props.register ? props.register(props.name, props.rules) : {})}
       />
       {props.valuetext}
     </label>
   );
 }
 
+
 function RadioInputGender(props) {
   return (
-    <div
-      htmlFor="name"
-      className="flex flex-col gap-5 py-5 px-10 border border-[#dadce0] rounded-md bg-[#fff] "
-    >
-      <div className="title ">
+    <div className="flex flex-col gap-5 py-5 px-10 border border-[#dadce0] rounded-md bg-[#fff]">
+      <div className="title">
         <h1 className="text-[24px]">{props.header}</h1>
         <span className="text-[#1f1f1f]">{props.text}</span>
       </div>
-      <RadioInputValue value="lakilaki" valuetext="Laki laki" register={props.register} name="gender" />
-      <RadioInputValue value="perempuan" valuetext="Perempuan" register={props.register} name="gender" />
-      
+
+      <RadioInputValue value="lakilaki" valuetext="Laki-laki" register={props.register} name="gender" rules={{ required: "Jenis kelamin wajib dipilih" }} />
+      <RadioInputValue value="perempuan" valuetext="Perempuan" register={props.register} name="gender" rules={{ required: "Jenis kelamin wajib dipilih" }} />
+
+      {props.error && (
+        <span className="text-red-500 text-sm">
+          {props.error.message}
+        </span>
+      )}
     </div>
   );
 }
 function RadioInputSmoke(props) {
   return (
-    <div
-      htmlFor="name"
-      className="flex flex-col gap-5 py-5 px-10 border border-[#dadce0] rounded-md bg-[#fff] "
-    >
-      <div className="title ">
+    <div className="flex flex-col gap-5 py-5 px-10 border border-[#dadce0] rounded-md bg-[#fff]">
+      <div className="title">
         <h1 className="text-[24px]">{props.header}</h1>
         <span className="text-[#1f1f1f]">{props.text}</span>
       </div>
-      <RadioInputValue value="ya" valuetext="Ya" register={props.register} name="smoking" />
-      <RadioInputValue value="tidak" valuetext="Tidak" register={props.register} name="smoking" />
+
+      <RadioInputValue value="ya" valuetext="Tidak" register={props.register} name="smoke" rules={{ required: "Pilih salah satu" }} />
+      <RadioInputValue value="tidak" valuetext="Tidak" register={props.register} name="smoke" rules={{ required: "Pilih salah satu" }} />
+
+      {props.error && (
+        <span className="text-red-500 text-sm">
+          {props.error.message}
+        </span>
+      )}
     </div>
   );
 }
-
 function CheckboxVal(props) {
   return (
     <label htmlFor={props.value}>
@@ -84,7 +84,7 @@ function CheckboxVal(props) {
         id={props.value}
         value={props.value}
         className="mx-3"
-        {...(props.register && props.name ? props.register(props.name) : {})}
+        {...(props.register && props.name ? props.register(props.name, props.rules) : {})}
       />
       {props.text}
     </label>
@@ -99,13 +99,13 @@ function Checkbox({ register }) {
     >
       <div className="title ">
         <h1 className="text-[24px]">
-          Jika anda pernah merokok, rokok apa yang pernah anda coba{" "}
+          Jika anda pernah merokok, rokok apa yang pernah anda coba
         </h1>
         <span className="text-[#1f1f1f]">
-          Pilih beberapa jika anda pernah merokok{" "}
+          Pilih beberapa jika anda pernah merokok
         </span>
       </div>
-      <CheckboxVal value="gudanggaramfilter" text="Gudang garam filter" register={register} name="cigaretteBrands" />
+      <CheckboxVal value="gudanggaramfilter" text="Gudang garam filter" register={register} name="cigaretteBrands"  />
       <CheckboxVal value="luckystrike" text="Lucky Strike" register={register} name="cigaretteBrands" />
       <CheckboxVal value="marlboro" text="Marlboro" register={register} name="cigaretteBrands" />
       <CheckboxVal value="esse" text="Esse" register={register} name="cigaretteBrands" />

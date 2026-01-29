@@ -72,14 +72,11 @@ function App() {
         }}
         error={errors.age}
       />
+      <RadioInputGender header="Apa Jenis Kelamin Anda" text="Pilih salah satu" register={register} error={errors.gender} />
+      <RadioInputSmoke header="Apakah anda merokok?" text="Pilih salah satu" register={register} error={errors.smoke} />
 
-      <RadioInputGender
-        header="Apa Jenis Kelamin Anda"
-        text="Pilih salah satu"
-        register={register}
-      />
-      <RadioInputSmoke header="Apakah anda merokok?" text="Pilih salah satu" register={register} />
-      <Checkbox register={register} />
+      <Checkbox register={register} error={errors.cigaretteBrands} />
+
       <div className="w-full flex gap-5">
         <Button text="Submit" styleColor="text-[#fff] bg-[#777777]" type="submit" />
         <Button
