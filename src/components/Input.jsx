@@ -1,27 +1,33 @@
 import { useForm } from "react-hook-form";
 
 function SingleInput(props) {
-  const { register, name } = props;
-
   return (
-    <label
-      htmlFor={name}
-      className="flex flex-col gap-5 py-5 px-10 border border-[#dadce0] rounded-md bg-[#fff]"
-    >
+    <label htmlFor={props.name}
+      className="flex flex-col gap-5 py-5 px-10 border border-[#dadce0] rounded-md bg-[#fff]">
       <div className="title">
         <h1 className="text-[24px]">{props.title}</h1>
         <span className="text-[#1f1f1f]">{props.secondTitle}</span>
       </div>
+      {/* <span className="font-semibold">{props.title}</span>
+      <span className="text-sm text-gray-500">
+        {props.secondTitle}
+      </span> */}
 
       <input
-        id={name}
         placeholder={props.placeholder}
-        className="text-[14px] outline-none border-b border-indigo-300 focus:border-indigo-700 focus:border-b-2 focus:ring-0"
-        {...(register && name ? register(name) : {})}
+        className={`className="text-[14px] outline-none border-b border-indigo-300 focus:border-indigo-700 focus:border-b-2 focus:ring-0" ${ props.error ? "border-red-500" : "border-gray-300" }`}
+        {...props.register(props.name, props.rules)}
       />
+
+      {props.error && (
+        <p className="text-red-500 text-sm">
+          {props.error.message}
+        </p>
+      )}
     </label>
   );
 }
+
 
 function RadioInputValue(props) {
   return (
@@ -31,7 +37,7 @@ function RadioInputValue(props) {
         id={props.value}
         value={props.value}
         className="mx-3"
-        {...(props.register && props.name ? props.register(props.name) : {})}
+        {...(props.rules, props.register && props.name ? props.register(props.name) : {})}
       />
       {props.valuetext}
     </label>
@@ -50,6 +56,7 @@ function RadioInputGender(props) {
       </div>
       <RadioInputValue value="lakilaki" valuetext="Laki laki" register={props.register} name="gender" />
       <RadioInputValue value="perempuan" valuetext="Perempuan" register={props.register} name="gender" />
+      
     </div>
   );
 }

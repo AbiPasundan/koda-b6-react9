@@ -9,15 +9,22 @@ import {
 import { Link } from "react-router";
 
 function App() {
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: {
-      fullName: "",
-      age: "",
-      gender: "",
-      smoking: "",
-      cigaretteBrands: [],
-    },
-  });
+  const {
+  register,
+  handleSubmit,
+  reset,
+  formState: { errors },
+  watch,
+} = useForm({
+  defaultValues: {
+    fullName: "",
+    age: "",
+    gender: "",
+    smoking: "",
+    cigaretteBrands: [],
+  },
+});
+
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
@@ -30,19 +37,42 @@ function App() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10 mx-auto my-10 justify-center max-w-[640px] text-[rgb(32,33,36)] ">
       <SingleInput
-        title="Full Name"
-        secondTitle="What is your name"
-        placeholder="Nama Anda"
-        register={register}
-        name="fullName"
+      title="Full Name"
+      secondTitle="What is your name"
+      placeholder="Nama Anda"
+      name="fullName"
+      register={register}
+      rules={{
+        required: "Nama wajib diisi",
+        minLength: {
+          value: 3,
+          message: "Nama minimal 3 karakter",
+        },
+      }}
+      error={errors.fullName}
       />
+
       <SingleInput
         title="Age"
         secondTitle="Berapa umur anda"
         placeholder="Umur Anda"
-        register={register}
         name="age"
+        register={register}
+        rules={{
+          required: "Umur wajib diisi",
+          valueAsNumber: true,
+          min: {
+            value: 1,
+            message: "Umur minimal 1 tahun",
+          },
+          max: {
+            value: 120,
+            message: "Umur maksimal 120 tahun",
+          },
+        }}
+        error={errors.age}
       />
+
       <RadioInputGender
         header="Apa Jenis Kelamin Anda"
         text="Pilih salah satu"
