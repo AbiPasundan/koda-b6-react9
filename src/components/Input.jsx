@@ -76,28 +76,26 @@ function RadioInputSmoke(props) {
     </div>
   );
 }
+
 function CheckboxVal(props) {
   return (
-    <label htmlFor={props.value}>
+    <label htmlFor={props.value} className="flex items-center gap-3">
       <input
         type="checkbox"
         id={props.value}
         value={props.value}
-        className="mx-3"
-        {...(props.register && props.name ? props.register(props.name, props.rules) : {})}
+        {...(props.register ? props.register(props.name, props.rules) : {})}
       />
       {props.text}
     </label>
   );
 }
 
-function Checkbox({ register }) {
+
+function Checkbox({ register, error }) {
   return (
-    <div
-      htmlFor="name"
-      className="flex flex-col gap-5 py-5 px-10 border border-[#dadce0] rounded-md bg-[#fff] "
-    >
-      <div className="title ">
+    <div className="flex flex-col gap-5 py-5 px-10 border border-[#dadce0] rounded-md bg-[#fff]">
+      <div className="title">
         <h1 className="text-[24px]">
           Jika anda pernah merokok, rokok apa yang pernah anda coba
         </h1>
@@ -105,13 +103,26 @@ function Checkbox({ register }) {
           Pilih beberapa jika anda pernah merokok
         </span>
       </div>
-      <CheckboxVal value="gudanggaramfilter" text="Gudang garam filter" register={register} name="cigaretteBrands"  />
+
+      <CheckboxVal value="gudanggaramfilter" text="Gudang Garam Filter" register={register} name="cigaretteBrands" rules={{
+          required: "Minimal pilih satu merek rokok, jika tidak pilih tidak ",
+        }}
+      />
+
       <CheckboxVal value="luckystrike" text="Lucky Strike" register={register} name="cigaretteBrands" />
       <CheckboxVal value="marlboro" text="Marlboro" register={register} name="cigaretteBrands" />
       <CheckboxVal value="esse" text="Esse" register={register} name="cigaretteBrands" />
+      <CheckboxVal value="tidak" text="Tidak" register={register} name="cigaretteBrands" />
+
+      {error && (
+        <span className="text-red-500 text-sm">
+          {error.message}
+        </span>
+      )}
     </div>
   );
 }
+
 
 function Button(props) {
   return (

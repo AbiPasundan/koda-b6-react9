@@ -20,7 +20,7 @@ function App() {
     fullName: "",
     age: "",
     gender: "",
-    smoking: "",
+    smoke: "",
     cigaretteBrands: [],
   },
 });
