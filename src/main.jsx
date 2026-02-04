@@ -6,6 +6,11 @@ import { App } from './App.jsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 
+
+import store from './components/redux/store'
+import { Provider } from 'react-redux'
+import Result from './pages/Result.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -13,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/result",
-    element: <div>Kela can jadi</div>,
+    element: <Result />,
   },
   {
     path: "*",
@@ -22,7 +27,9 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+  <Provider store={store}>
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>
+  </Provider>
 )

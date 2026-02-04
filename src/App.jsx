@@ -7,8 +7,15 @@ import {
   Checkbox,
 } from "./components/Input";
 import { Link } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { reset, updateData } from "./components/redux/redux";
 
 function App() {
+  const dispatch = useDispatch();
+  
+  const data = useSelector(state => state.result);
+
+  console.log(data)
   const {
   register,
   handleSubmit,
@@ -25,17 +32,25 @@ function App() {
   },
 });
 
-
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const onSubmit = (dataInput) => {
+  console.log(dataInput)
+  const newData = {
+    fullName: dataInput.fullName,
+    age: dataInput.age,
+    gender: dataInput.gender,
+    smoke: dataInput.smoke,
+    cigaretteBrands: dataInput.cigaretteBrands,
   };
+
+  dispatch(updateData(newData));
+};
 
   const handleReset = () => {
     reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10 mx-auto my-10 justify-center max-w-[640px] text-[rgb(32,33,36)] ">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10 mx-10 my-10 justify-center max-w-[640px] text-[rgb(32,33,36)] ">
       <SingleInput
       title="Full Name"
       secondTitle="What is your name"

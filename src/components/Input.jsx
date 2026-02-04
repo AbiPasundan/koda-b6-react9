@@ -65,7 +65,7 @@ function RadioInputSmoke(props) {
         <span className="text-[#1f1f1f]">{props.text}</span>
       </div>
 
-      <RadioInputValue value="ya" valuetext="Tidak" register={props.register} name="smoke" rules={{ required: "Pilih salah satu" }} />
+      <RadioInputValue value="ya" valuetext="Ya" register={props.register} name="smoke" rules={{ required: "Pilih salah satu" }} />
       <RadioInputValue value="tidak" valuetext="Tidak" register={props.register} name="smoke" rules={{ required: "Pilih salah satu" }} />
 
       {props.error && (
