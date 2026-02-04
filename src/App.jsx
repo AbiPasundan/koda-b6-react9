@@ -6,13 +6,13 @@ import {
   RadioInputGender,
   Checkbox,
 } from "./components/Input";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { reset, updateData } from "./components/redux/redux";
 
 function App() {
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate()
   const data = useSelector(state => state.result);
 
   console.log(data)
@@ -41,7 +41,7 @@ function App() {
     smoke: dataInput.smoke,
     cigaretteBrands: dataInput.cigaretteBrands,
   };
-
+  navigate("/result")
   dispatch(updateData(newData));
 };
 
